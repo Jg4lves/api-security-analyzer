@@ -1,0 +1,34 @@
+package com.jg4lves.analyzer.analyzer;
+
+import com.jg4lves.analyzer.model.SecurityIssue;
+import com.jg4lves.analyzer.model.SecurityReport;
+import org.springframework.stereotype.Component;
+
+import java.net.http.HttpHeaders;
+
+@Component
+public class HeaderAnalyzer {
+
+    public void analyze(HttpHeaders headers, SecurityReport report) {
+
+        if(headers.firstValue("Content-Security-Policy").isEmpty()) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "MEDIUM",
+                            "Missing Content-Security-Policy header"
+                    )
+            );
+        }
+
+        if(headers.firstValue("Strict-Transport-Security").isEmpty()) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "HIGH",
+                            "Missing HSTS header"
+                    )
+            );
+        }
+    }
+}
