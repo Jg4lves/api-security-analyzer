@@ -16,7 +16,8 @@ public class TLSAnalyzer {
 
         String protocol = session.getProtocol();
 
-        if(protocol.contains("TLSv1")) {
+        if (protocol.equals("TLSv1")
+                || protocol.equals("TLSv1.1")) {
 
             report.addIssue(
                     new SecurityIssue(
@@ -28,7 +29,7 @@ public class TLSAnalyzer {
 
         String cipher = session.getCipherSuite();
 
-        if(cipher.contains("RC4")
+        if (cipher.contains("RC4")
                 || cipher.contains("DES")) {
 
             report.addIssue(
