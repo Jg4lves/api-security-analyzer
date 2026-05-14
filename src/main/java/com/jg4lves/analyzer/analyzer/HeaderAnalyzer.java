@@ -11,7 +11,7 @@ public class HeaderAnalyzer {
 
     public void analyze(HttpHeaders headers, SecurityReport report) {
 
-        if(headers.firstValue("Content-Security-Policy").isEmpty()) {
+        if (headers.firstValue("Content-Security-Policy").isEmpty()) {
 
             report.addIssue(
                     new SecurityIssue(
@@ -21,12 +21,52 @@ public class HeaderAnalyzer {
             );
         }
 
-        if(headers.firstValue("Strict-Transport-Security").isEmpty()) {
+        if (headers.firstValue("Strict-Transport-Security").isEmpty()) {
 
             report.addIssue(
                     new SecurityIssue(
                             "HIGH",
                             "Missing HSTS header"
+                    )
+            );
+        }
+
+        if (headers.firstValue("X-Frame-Options").isEmpty()) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "MEDIUM",
+                            "Missing X-Frame-Options header"
+                    )
+            );
+        }
+
+        if (headers.firstValue("X-Content-Type-Options").isEmpty()) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "LOW",
+                            "Missing X-Content-Type-Options header"
+                    )
+            );
+        }
+
+        if (headers.firstValue("Referrer-Policy").isEmpty()) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "LOW",
+                            "Missing Referrer-Policy header"
+                    )
+            );
+        }
+
+        if (headers.firstValue("Permissions-Policy").isEmpty()) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "LOW",
+                            "Missing Permissions-Policy header"
                     )
             );
         }

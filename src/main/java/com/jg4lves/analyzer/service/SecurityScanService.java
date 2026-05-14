@@ -1,8 +1,6 @@
 package com.jg4lves.analyzer.service;
 
-import com.jg4lves.analyzer.analyzer.CorsAnalyzer;
-import com.jg4lves.analyzer.analyzer.HeaderAnalyzer;
-import com.jg4lves.analyzer.analyzer.SSLAnalyzer;
+import com.jg4lves.analyzer.analyzer.*;
 import com.jg4lves.analyzer.model.SecurityIssue;
 import com.jg4lves.analyzer.model.SecurityReport;
 import org.springframework.stereotype.Service;
@@ -19,17 +17,27 @@ public class SecurityScanService {
     private final HeaderAnalyzer headerAnalyzer;
     private final CorsAnalyzer corsAnalyzer;
     private final SSLAnalyzer sslAnalyzer;
+    private final CookieAnalyzer cookieAnalyzer;
+    private final TLSAnalyzer tlsAnalyzer;
+    private final FingerprintAnalyzer fingerprintAnalyzer;
+    private final RedirectAnalyzer redirectAnalyzer;
+    private final SecurityTxtAnalyzer securityTxtAnalyzer;
 
     public SecurityScanService(
             HttpClient httpClient,
             HeaderAnalyzer headerAnalyzer,
             CorsAnalyzer corsAnalyzer,
-            SSLAnalyzer sslAnalyzer
+            SSLAnalyzer sslAnalyzer, CookieAnalyzer cookieAnalyzer, TLSAnalyzer tlsAnalyzer, FingerprintAnalyzer fingerprintAnalyzer, RedirectAnalyzer redirectAnalyzer, SecurityTxtAnalyzer securityTxtAnalyzer
     ) {
         this.httpClient = httpClient;
         this.headerAnalyzer = headerAnalyzer;
         this.corsAnalyzer = corsAnalyzer;
         this.sslAnalyzer = sslAnalyzer;
+        this.cookieAnalyzer = cookieAnalyzer;
+        this.tlsAnalyzer = tlsAnalyzer;
+        this.fingerprintAnalyzer = fingerprintAnalyzer;
+        this.redirectAnalyzer = redirectAnalyzer;
+        this.securityTxtAnalyzer = securityTxtAnalyzer;
     }
 
     public SecurityReport scan(String url) {
@@ -54,9 +62,20 @@ public class SecurityScanService {
 
             corsAnalyzer.analyze(response.headers(), report);
 
-            response.sslSession().ifPresent(
-                    ssl -> sslAnalyzer.analyze(ssl, report)
-            );
+            cookieAnalyzer.analyze(response.headers(), report);
+
+            fingerprintAnalyzer.analyze(response.headers(), report);
+
+            redirectAnalyzer.analyze(response, report);
+
+            securityTxtAnalyzer.analyze(url, report);
+
+            response.sslSession().ifPresent(ssl -> {
+
+                sslAnalyzer.analyze(ssl, report);
+
+                tlsAnalyzer.analyze(ssl, report);
+            });
 
             int score = 100 - (report.getIssues().size() * 15);
 
