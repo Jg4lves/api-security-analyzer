@@ -22,12 +22,13 @@ public class SecurityScanService {
     private final FingerprintAnalyzer fingerprintAnalyzer;
     private final RedirectAnalyzer redirectAnalyzer;
     private final SecurityTxtAnalyzer securityTxtAnalyzer;
+    private final RiskScoreCalculator riskScoreCalculator;
 
     public SecurityScanService(
             HttpClient httpClient,
             HeaderAnalyzer headerAnalyzer,
             CorsAnalyzer corsAnalyzer,
-            SSLAnalyzer sslAnalyzer, CookieAnalyzer cookieAnalyzer, TLSAnalyzer tlsAnalyzer, FingerprintAnalyzer fingerprintAnalyzer, RedirectAnalyzer redirectAnalyzer, SecurityTxtAnalyzer securityTxtAnalyzer
+            SSLAnalyzer sslAnalyzer, CookieAnalyzer cookieAnalyzer, TLSAnalyzer tlsAnalyzer, FingerprintAnalyzer fingerprintAnalyzer, RedirectAnalyzer redirectAnalyzer, SecurityTxtAnalyzer securityTxtAnalyzer, RiskScoreCalculator riskScoreCalculator
     ) {
         this.httpClient = httpClient;
         this.headerAnalyzer = headerAnalyzer;
@@ -38,6 +39,7 @@ public class SecurityScanService {
         this.fingerprintAnalyzer = fingerprintAnalyzer;
         this.redirectAnalyzer = redirectAnalyzer;
         this.securityTxtAnalyzer = securityTxtAnalyzer;
+        this.riskScoreCalculator = riskScoreCalculator;
     }
 
     public SecurityReport scan(String url) {
@@ -77,9 +79,9 @@ public class SecurityScanService {
                 tlsAnalyzer.analyze(ssl, report);
             });
 
-            int score = 100 - (report.getIssues().size() * 15);
-
-            report.setScore(Math.max(score, 0));
+            report.setScore(
+                    riskScoreCalculator.calculate(report)
+            );
 
         } catch (Exception e) {
 

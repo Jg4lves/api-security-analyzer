@@ -14,38 +14,53 @@ public class CookieAnalyzer {
             SecurityReport report
     ) {
 
-        headers.allValues("Set-Cookie")
-                .forEach(cookie -> {
+        boolean missingHttpOnly = false;
+        boolean missingSecure = false;
+        boolean missingSameSite = false;
 
-                    if(!cookie.contains("HttpOnly")) {
+        for (String cookie : headers.allValues("Set-Cookie")) {
 
-                        report.addIssue(
-                                new SecurityIssue(
-                                        "HIGH",
-                                        "Cookie without HttpOnly flag"
-                                )
-                        );
-                    }
+            if (!cookie.contains("HttpOnly")) {
+                missingHttpOnly = true;
+            }
 
-                    if(!cookie.contains("Secure")) {
+            if (!cookie.contains("Secure")) {
+                missingSecure = true;
+            }
 
-                        report.addIssue(
-                                new SecurityIssue(
-                                        "HIGH",
-                                        "Cookie without Secure flag"
-                                )
-                        );
-                    }
+            if (!cookie.contains("SameSite")) {
+                missingSameSite = true;
+            }
+        }
 
-                    if(!cookie.contains("SameSite")) {
+        if (missingHttpOnly) {
 
-                        report.addIssue(
-                                new SecurityIssue(
-                                        "MEDIUM",
-                                        "Cookie without SameSite attribute"
-                                )
-                        );
-                    }
-                });
+            report.addIssue(
+                    new SecurityIssue(
+                            "HIGH",
+                            "Cookie without HttpOnly flag"
+                    )
+            );
+        }
+
+        if (missingSecure) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "HIGH",
+                            "Cookie without Secure flag"
+                    )
+            );
+        }
+
+        if (missingSameSite) {
+
+            report.addIssue(
+                    new SecurityIssue(
+                            "MEDIUM",
+                            "Cookie without SameSite attribute"
+                    )
+            );
+        }
     }
 }
