@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="511609e4-eed1-4ab3-9496-cad264fe8f15" name="Changes" comment="feat: generate PDF reports for security scans">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/AnalyzerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/CookieAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/CorsAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/FingerprintAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/HeaderAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/RedirectAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/RiskScoreCalculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/SSLAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/SecurityTxtAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/analyzer/TLSAnalyzer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/config/HttpClientConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/controller/ReportController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/controller/ScanController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/knowledgebase/VulnerabilityKnowledgeBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/model/ScanRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/model/SecurityIssue.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/model/SecurityReport.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/model/VulnerabilityInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/report/PdfGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/service/PdfReportService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jg4lves/analyzer/service/SecurityScanService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jg4lves/analyzer/AnalyzerApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jg4lves/analyzer/analyzer/CorsAnalyzerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jg4lves/analyzer/analyzer/HeaderAnalyzerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jg4lves/analyzer/analyzer/SSLAnalyzerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jg4lves/analyzer/service/SecurityScanServiceTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="3DdRpNZD7EfzwNYodqsEBeQJLWc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.CorsAnalyzerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.HeaderAnalyzerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SSLAnalyzerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SecurityScanServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SecurityScanServiceTest.shouldReturnScoreZeroWhenRequestFails.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AnalyzerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jgalves/Projetos/api-security-analyzer&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Spring Boot.AnalyzerApplication">
+    <configuration name="CorsAnalyzerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jg4lves.analyzer.analyzer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jg4lves.analyzer.analyzer" />
+      <option name="MAIN_CLASS_NAME" value="com.jg4lves.analyzer.analyzer.CorsAnalyzerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HeaderAnalyzerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jg4lves.analyzer.analyzer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jg4lves.analyzer.analyzer" />
+      <option name="MAIN_CLASS_NAME" value="com.jg4lves.analyzer.analyzer.HeaderAnalyzerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SSLAnalyzerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jg4lves.analyzer.analyzer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jg4lves.analyzer.analyzer" />
+      <option name="MAIN_CLASS_NAME" value="com.jg4lves.analyzer.analyzer.SSLAnalyzerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SecurityScanServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jg4lves.analyzer.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jg4lves.analyzer.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jg4lves.analyzer.service.SecurityScanServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SecurityScanServiceTest.shouldReturnScoreZeroWhenRequestFails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jg4lves.analyzer.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jg4lves.analyzer.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jg4lves.analyzer.service.SecurityScanServiceTest" />
+      <option name="METHOD_NAME" value="shouldReturnScoreZeroWhenRequestFails" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnalyzerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="analyzer" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jg4lves.analyzer.AnalyzerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.HeaderAnalyzerTest" />
+        <item itemvalue="JUnit.SecurityScanServiceTest" />
+        <item itemvalue="JUnit.CorsAnalyzerTest" />
+        <item itemvalue="JUnit.SSLAnalyzerTest" />
+        <item itemvalue="JUnit.SecurityScanServiceTest.shouldReturnScoreZeroWhenRequestFails" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="511609e4-eed1-4ab3-9496-cad264fe8f15" name="Changes" comment="" />
+      <created>1778610142006</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1778610142006</updated>
+      <workItem from="1778610143210" duration="3190000" />
+      <workItem from="1778757675180" duration="8935000" />
+      <workItem from="1778843003885" duration="1817000" />
+      <workItem from="1778846223926" duration="7165000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: initial commit">
+      <option name="closed" value="true" />
+      <created>1778610235095</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1778610235095</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: add security report and issue models">
+      <option name="closed" value="true" />
+      <created>1778612483547</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1778612483547</updated>
+    </task>
+    <task id="LOCAL-00003" summary="config: add HttpClient configuration">
+      <option name="closed" value="true" />
+      <created>1778612494775</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1778612494775</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: implement security analyzers for headers, CORS and SSL">
+      <option name="closed" value="true" />
+      <created>1778612515638</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1778612515638</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: implement security scanning service">
+      <option name="closed" value="true" />
+      <created>1778772557448</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1778772557448</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: add REST endpoint for security analysis">
+      <option name="closed" value="true" />
+      <created>1778772572117</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1778772572117</updated>
+    </task>
+    <task id="LOCAL-00007" summary="test: add unit tests for security analyzers and scan service">
+      <option name="closed" value="true" />
+      <created>1778782716123</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1778782716123</updated>
+    </task>
+    <task id="LOCAL-00008" summary="config: disable CSRF and allow public API requests">
+      <option name="closed" value="true" />
+      <created>1778783468971</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1778783468971</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: implement cookie, TLS, fingerprint, redirect and security.txt analyzers">
+      <option name="closed" value="true" />
+      <created>1778784695059</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1778784695059</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix: prevent duplicated cookie issues and refine security risk calculation">
+      <option name="closed" value="true" />
+      <created>1778785166035</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1778785166035</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix: correct TLS version validation logic">
+      <option name="closed" value="true" />
+      <created>1778785188811</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1778785188811</updated>
+    </task>
+    <task id="LOCAL-00012" summary="test: improve SecurityScanService unit tests">
+      <option name="closed" value="true" />
+      <created>1778845303523</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1778845303523</updated>
+    </task>
+    <task id="LOCAL-00013" summary="test: improve HeaderAnalyzer test coverage">
+      <option name="closed" value="true" />
+      <created>1778845438455</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1778845438455</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: generate PDF reports for security scans">
+      <option name="closed" value="true" />
+      <created>1778853555156</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1778853555157</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: initial commit" />
+    <MESSAGE value="feat: add security report and issue models" />
+    <MESSAGE value="config: add HttpClient configuration" />
+    <MESSAGE value="feat: implement security analyzers for headers, CORS and SSL" />
+    <MESSAGE value="feat: implement security scanning service" />
+    <MESSAGE value="feat: add REST endpoint for security analysis" />
+    <MESSAGE value="test: add unit tests for security analyzers and scan service" />
+    <MESSAGE value="config: disable CSRF and allow public API requests" />
+    <MESSAGE value="feat: implement cookie, TLS, fingerprint, redirect and security.txt analyzers" />
+    <MESSAGE value="fix: prevent duplicated cookie issues and refine security risk calculation" />
+    <MESSAGE value="fix: correct TLS version validation logic" />
+    <MESSAGE value="test: improve SecurityScanService unit tests" />
+    <MESSAGE value="test: improve HeaderAnalyzer test coverage" />
+    <MESSAGE value="feat: generate PDF reports for security scans" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: generate PDF reports for security scans" />
+  </component>
+</project>
