@@ -15,13 +15,13 @@ public class RiskScoreCalculator {
 
             switch (issue.getSeverity()) {
 
-                case "LOW" -> score -= 5;
+                case "LOW" -> score -= 2;
 
-                case "MEDIUM" -> score -= 10;
+                case "MEDIUM" -> score -= 5;
 
-                case "HIGH" -> score -= 20;
+                case "HIGH" -> score -= 10;
 
-                case "CRITICAL" -> score -= 35;
+                case "CRITICAL" -> score -= 20;
             }
         }
 
