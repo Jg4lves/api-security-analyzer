@@ -7,9 +7,20 @@
       <div class="logo-block">
         <span class="logo-icon">
           <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <polygon points="14,2 26,8 26,20 14,26 2,20 2,8" stroke="currentColor" stroke-width="1.5" fill="none"/>
-            <polygon points="14,7 21,11 21,17 14,21 7,17 7,11" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"/>
-            <circle cx="14" cy="14" r="2.5" fill="currentColor"/>
+            <polygon
+              points="14,2 26,8 26,20 14,26 2,20 2,8"
+              stroke="currentColor"
+              stroke-width="1.5"
+              fill="none"
+            />
+            <polygon
+              points="14,7 21,11 21,17 14,21 7,17 7,11"
+              stroke="currentColor"
+              stroke-width="1"
+              fill="none"
+              opacity="0.5"
+            />
+            <circle cx="14" cy="14" r="2.5" fill="currentColor" />
           </svg>
         </span>
         <div class="logo-text">
@@ -24,57 +35,92 @@
     </header>
 
     <main class="main-content">
-      <div class="input-section">
-        <label class="input-label">
-          <span class="label-prefix">TARGET //</span>
-          URL do Site para Análise
-        </label>
-        <div class="input-row">
-          <div class="input-wrapper" [class.focused]="inputFocused" [class.error]="urlError">
-            <span class="input-prefix">https://</span>
-            <input
-              type="text"
-              [(ngModel)]="targetUrl"
-              (focus)="inputFocused = true"
-              (blur)="inputFocused = false; validateUrl()"
-              (keyup.enter)="startScan()"
-              placeholder="exemplo.com.br"
-              class="url-input"
-              [disabled]="isScanning"
-            />
-            <span class="input-suffix" *ngIf="targetUrl">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M8 1a7 7 0 100 14A7 7 0 008 1z" stroke="currentColor" stroke-width="1.2"/>
-                <path d="M5.5 8h5M5.5 5.5S7 7 8 8s2.5 2.5 2.5 2.5M10.5 5.5S9 7 8 8 5.5 10.5 5.5 10.5" stroke="currentColor" stroke-width="1.2"/>
-              </svg>
-            </span>
-          </div>
-          <button
-            class="scan-btn"
-            [class.scanning]="isScanning"
-            (click)="startScan()"
-            [disabled]="isScanning || !targetUrl"
-          >
-            <span class="btn-content" *ngIf="!isScanning">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M9 5v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              ANALISAR
-            </span>
-            <span class="btn-content scanning-content" *ngIf="isScanning">
-              <span class="spinner"></span>
-              ANALISANDO...
-            </span>
-          </button>
+      <section class="intro" *ngIf="!report && !isScanning">
+        <span class="intro-eyebrow">// O QUE É O SENTINEL</span>
+        <h1 class="intro-title">Analise a segurança do seu site em segundos</h1>
+        <p class="intro-text">
+          O Sentinel varre seu domínio e verifica pontos críticos de proteção web: certificado SSL,
+          headers de segurança, políticas como CSP e HSTS, exposição de DNS e outras más
+          configurações comuns. Ao final, você recebe uma pontuação de 0 a 100 e um relatório
+          detalhado, item por item, com o que está correto e o que precisa de atenção.
+        </p>
+        <div class="intro-tags">
+          <span class="intro-tag">Certificado SSL</span>
+          <span class="intro-tag">Headers HTTP</span>
+          <span class="intro-tag">Políticas CSP / HSTS</span>
+          <span class="intro-tag">DNS &amp; Exposição</span>
         </div>
-        <p class="error-msg" *ngIf="urlError">{{ urlError }}</p>
+      </section>
 
-        <div class="progress-bar-container" *ngIf="isScanning">
-          <div class="progress-bar">
-            <div class="progress-fill" [style.width]="progress + '%'"></div>
+      <div class="input-section">
+        <div class="input-panel" [class.focused]="inputFocused">
+          <label class="input-label">
+            <span class="label-prefix">TARGET //</span>
+            Informe a URL do site que deseja analisar
+          </label>
+          <div class="input-row">
+            <div class="input-wrapper" [class.focused]="inputFocused" [class.error]="urlError">
+              <span class="input-prefix">https://</span>
+              <input
+                type="text"
+                [(ngModel)]="targetUrl"
+                (focus)="inputFocused = true"
+                (blur)="inputFocused = false; validateUrl()"
+                (keyup.enter)="startScan()"
+                placeholder="exemplo.com.br"
+                class="url-input"
+                [disabled]="isScanning"
+              />
+              <span class="input-suffix" *ngIf="targetUrl">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M8 1a7 7 0 100 14A7 7 0 008 1z"
+                    stroke="currentColor"
+                    stroke-width="1.2"
+                  />
+                  <path
+                    d="M5.5 8h5M5.5 5.5S7 7 8 8s2.5 2.5 2.5 2.5M10.5 5.5S9 7 8 8 5.5 10.5 5.5 10.5"
+                    stroke="currentColor"
+                    stroke-width="1.2"
+                  />
+                </svg>
+              </span>
+            </div>
+            <button
+              class="scan-btn"
+              [class.scanning]="isScanning"
+              (click)="startScan()"
+              [disabled]="isScanning || !targetUrl"
+            >
+              <span class="btn-content" *ngIf="!isScanning">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5" />
+                  <path
+                    d="M9 5v4l3 2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                ANALISAR
+              </span>
+              <span class="btn-content scanning-content" *ngIf="isScanning">
+                <span class="spinner"></span>
+                ANALISANDO...
+              </span>
+            </button>
           </div>
-          <span class="progress-label">{{ progressLabel }}</span>
+          <p class="input-hint" *ngIf="!urlError">
+            Gratuito, sem cadastro. Levamos cerca de 15 segundos para concluir a varredura.
+          </p>
+          <p class="error-msg" *ngIf="urlError">{{ urlError }}</p>
+
+          <div class="progress-bar-container" *ngIf="isScanning">
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width]="progress + '%'"></div>
+            </div>
+            <span class="progress-label">{{ progressLabel }}</span>
+          </div>
         </div>
       </div>
 
@@ -82,7 +128,7 @@
         <div class="results-header">
           <div class="results-title">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 1L15 5v6L8 15 1 11V5L8 1z" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M8 1L15 5v6L8 15 1 11V5L8 1z" stroke="currentColor" stroke-width="1.2" />
             </svg>
             RELATÓRIO DE SEGURANÇA
           </div>
@@ -96,15 +142,48 @@
           <div class="result-card" *ngFor="let item of report.checks">
             <div class="card-header">
               <span class="card-status" [class]="item.status">
-                <svg *ngIf="item.status === 'pass'" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M2.5 7l3.5 3.5 5.5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <svg
+                  *ngIf="item.status === 'pass'"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path
+                    d="M2.5 7l3.5 3.5 5.5-6"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
                 </svg>
-                <svg *ngIf="item.status === 'fail'" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <svg
+                  *ngIf="item.status === 'fail'"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path
+                    d="M3 3l8 8M11 3l-8 8"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
                 </svg>
-                <svg *ngIf="item.status === 'warn'" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M7 2L13 12H1L7 2z" stroke="currentColor" stroke-width="1.2"/>
-                  <path d="M7 6v3M7 10.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <svg
+                  *ngIf="item.status === 'warn'"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path d="M7 2L13 12H1L7 2z" stroke="currentColor" stroke-width="1.2" />
+                  <path
+                    d="M7 6v3M7 10.5v.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
                 </svg>
               </span>
               <span class="card-name">{{ item.name }}</span>
@@ -118,16 +197,31 @@
         <div class="download-section">
           <button class="download-btn" (click)="downloadReport()" [disabled]="isDownloading">
             <svg *ngIf="!isDownloading" width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M9 2v10M5 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M3 14h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path
+                d="M9 2v10M5 8l4 4 4-4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path d="M3 14h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
             </svg>
             <span class="spinner small" *ngIf="isDownloading"></span>
             {{ isDownloading ? 'GERANDO PDF...' : 'BAIXAR RELATÓRIO PDF' }}
           </button>
           <button class="rescan-btn" (click)="resetScan()">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M13 8A5 5 0 113 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M13 5v3h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path
+                d="M13 8A5 5 0 113 8"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M13 5v3h-3"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
             </svg>
             NOVA ANÁLISE
           </button>
@@ -141,7 +235,10 @@
             <div class="empty-bar short" [style.width]="item.w2"></div>
           </div>
         </div>
-        <p class="empty-hint">Insira uma URL e clique em <strong>ANALISAR</strong> para iniciar a verificação de segurança</p>
+        <p class="empty-hint">
+          Insira uma URL acima e clique em <strong>ANALISAR</strong> para iniciar a verificação de
+          segurança
+        </p>
       </div>
     </main>
 
