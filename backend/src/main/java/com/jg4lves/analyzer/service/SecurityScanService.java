@@ -28,7 +28,13 @@ public class SecurityScanService {
             HttpClient httpClient,
             HeaderAnalyzer headerAnalyzer,
             CorsAnalyzer corsAnalyzer,
-            SSLAnalyzer sslAnalyzer, CookieAnalyzer cookieAnalyzer, TLSAnalyzer tlsAnalyzer, FingerprintAnalyzer fingerprintAnalyzer, RedirectAnalyzer redirectAnalyzer, SecurityTxtAnalyzer securityTxtAnalyzer, RiskScoreCalculator riskScoreCalculator
+            SSLAnalyzer sslAnalyzer,
+            CookieAnalyzer cookieAnalyzer,
+            TLSAnalyzer tlsAnalyzer,
+            FingerprintAnalyzer fingerprintAnalyzer,
+            RedirectAnalyzer redirectAnalyzer,
+            SecurityTxtAnalyzer securityTxtAnalyzer,
+            RiskScoreCalculator riskScoreCalculator
     ) {
         this.httpClient = httpClient;
         this.headerAnalyzer = headerAnalyzer;
@@ -88,7 +94,9 @@ public class SecurityScanService {
             report.addIssue(
                     new SecurityIssue(
                             "CRITICAL",
-                            "Failed to scan target"
+                            "Falha ao realizar a análise do alvo.",
+                            "Não foi possível estabelecer conexão com o servidor de destino (" + url + "). Detalhes: " + e.getMessage(),
+                            "Verifique se a URL informada está correta, se o serviço está ativo e se o servidor aceita conexões de saída na porta configurada."
                     )
             );
 

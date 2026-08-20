@@ -15,12 +15,14 @@ public class CorsAnalyzer {
                 .firstValue("Access-Control-Allow-Origin")
                 .orElse("");
 
-        if(cors.equals("*")) {
+        if (cors.equals("*")) {
 
             report.addIssue(
                     new SecurityIssue(
                             "HIGH",
-                            "CORS configured with wildcard (*)"
+                            "CORS está configurado permitindo qualquer origem com wildcard (*).",
+                            "Qualquer site malicioso aberto no navegador do usuário pode fazer requisições para a sua API e ler os dados de resposta.",
+                            "Substitua o caractere coringa '*' por uma lista explícita de origens permitidas ou remova o header se o recurso não precisar ser exposto a domínios de terceiros."
                     )
             );
         }

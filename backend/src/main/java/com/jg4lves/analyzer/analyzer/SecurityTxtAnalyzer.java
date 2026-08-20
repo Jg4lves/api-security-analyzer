@@ -42,12 +42,14 @@ public class SecurityTxtAnalyzer {
                             HttpResponse.BodyHandlers.ofString()
                     );
 
-            if(response.statusCode() != 200) {
+            if (response.statusCode() != 200) {
 
                 report.addIssue(
                         new SecurityIssue(
                                 "LOW",
-                                "security.txt file not found"
+                                "Arquivo 'security.txt' não foi encontrado no servidor.",
+                                "A ausência do arquivo dificulta que pesquisadores e éticos de segurança reportem vulnerabilidades encontradas de forma segura e direta para sua organização.",
+                                "Crie o arquivo '/.well-known/security.txt' segundo a RFC 9116 contendo os canais oficiais de contato de segurança (Contact:) e prazo de suporte (Expires:)."
                         )
                 );
             }
@@ -57,7 +59,9 @@ public class SecurityTxtAnalyzer {
             report.addIssue(
                     new SecurityIssue(
                             "LOW",
-                            "Unable to verify security.txt"
+                            "Não foi possível verificar a presença do arquivo 'security.txt'.",
+                            "Falha de rede ou timeout durante a tentativa de consulta do caminho '/.well-known/security.txt'.",
+                            "Certifique-se de que as rotas '.well-known' estão acessíveis e não bloqueadas por Firewalls (WAF) ou regras de redirecionamento."
                     )
             );
         }

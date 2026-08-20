@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SecurityIssue {
     private String severity;
-    private String message;
+    private String description;
+    private String impact;
+    private String recommendation;
 }

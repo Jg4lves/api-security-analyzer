@@ -16,22 +16,24 @@ public class FingerprintAnalyzer {
 
         headers.firstValue("Server")
                 .ifPresent(server -> {
-
                     report.addIssue(
                             new SecurityIssue(
                                     "LOW",
-                                    "Server fingerprint exposed: " + server
+                                    "Header 'Server' exposto: " + server,
+                                    "Revela o software do servidor web e/ou versão utilizada, facilitando o mapeamento de vulnerabilidades conhecidas por um atacante.",
+                                    "Configure o servidor web (Nginx, Apache, IIS, etc.) para remover ou ocultar o header 'Server'."
                             )
                     );
                 });
 
         headers.firstValue("X-Powered-By")
                 .ifPresent(powered -> {
-
                     report.addIssue(
                             new SecurityIssue(
                                     "LOW",
-                                    "Technology exposure detected: " + powered
+                                    "Header 'X-Powered-By' exposto: " + powered,
+                                    "Exprime o framework ou linguagem rodando no backend (ex: Express, PHP, ASP.NET), reduzindo o esforço de reconhecimento de um atacante.",
+                                    "Desabilite a emissão do header 'X-Powered-By' nas configurações do seu framework ou servidor de aplicação."
                             )
                     );
                 });
