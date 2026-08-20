@@ -1,0 +1,33 @@
+/* ==========================================================================
+   GLOBAL BACKGROUND & BASE STYLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #070a11;
+  color: #f8fafc;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* Container principal que envolve a página fora do analyzer */
+.analyzer-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(163, 230, 53, 0.1), transparent 40%),
+    radial-gradient(circle at 50% 50%, #0f172a 0%, #070a11 100%);
+  background-attachment: fixed;
+}
