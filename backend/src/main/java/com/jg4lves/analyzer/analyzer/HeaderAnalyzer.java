@@ -5,34 +5,46 @@ import com.jg4lves.analyzer.model.SecurityReport;
 import org.springframework.stereotype.Component;
 
 import java.net.http.HttpHeaders;
+import java.util.List;
 
 @Component
 public class HeaderAnalyzer {
+    private static final List<String> HSTS_PRELOAD_KNOWN_DOMAINS = List.of(
+            "google.com", "www.google.com", "github.com", "cloudflare.com"
+    );
 
     public void analyze(HttpHeaders headers, SecurityReport report) {
         String contentType = headers.firstValue("Content-Type").orElse("").toLowerCase();
         boolean isHtml = contentType.contains("text/html") || contentType.isEmpty();
 
         String csp = headers.firstValue("Content-Security-Policy").orElse("");
-        boolean hasCsp = !csp.isEmpty();
+        boolean hasCspHeader = !csp.isEmpty();
 
-        if (!hasCsp && isHtml) {
+        if (!hasCspHeader && isHtml) {
             report.addIssue(
                     new SecurityIssue(
                             "MEDIUM",
                             "Header 'Content-Security-Policy' ausente.",
-                            "Sem uma política CSP, páginas HTML ficam significativamente mais vulneráveis a ataques de Cross-Site Scripting (XSS) e injeção de dados.",
+                            "Sem uma política CSP via Header HTTP, páginas HTML ficam significativamente mais vulneráveis a ataques de Cross-Site Scripting (XSS) e injeção de dados.",
                             "Configure o header 'Content-Security-Policy' restringindo as origens permitidas para scripts e recursos externos."
                     )
             );
         }
 
-        if (headers.firstValue("Strict-Transport-Security").isEmpty()) {
+        boolean hasHsts = headers.firstValue("Strict-Transport-Security").isPresent();
+        if (!hasHsts) {
+            boolean isKnownPreload = HSTS_PRELOAD_KNOWN_DOMAINS.stream().anyMatch(report.getUrl()::contains);
+
+            String severity = isKnownPreload ? "LOW" : "HIGH";
+            String impact = isKnownPreload
+                    ? "O header HSTS não foi enviado diretamente na resposta, mas o domínio é amplamente conhecido por estar na HSTS Preload List dos navegadores."
+                    : "A ausência do HSTS permite que atacantes forçam a conexão do usuário a cair para HTTP inseguro (Downgrade Attacks).";
+
             report.addIssue(
                     new SecurityIssue(
-                            "HIGH",
+                            severity,
                             "Header 'Strict-Transport-Security' (HSTS) ausente.",
-                            "A ausência do HSTS permite que atacantes forcem a conexão do usuário a cair para HTTP inseguro (Downgrade Attacks).",
+                            impact,
                             "Adicione o header 'Strict-Transport-Security: max-age=31536000; includeSubDomains' para impor conexões HTTPS no navegador."
                     )
             );

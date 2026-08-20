@@ -10,6 +10,7 @@ import java.util.List;
 
 @Component
 public class CookieAnalyzer {
+
     private static final List<String> SENSITIVE_COOKIES = List.of(
             "jsessionid", "phpsessid", "session_id", "auth", "token", "jwt", "bearer"
     );
@@ -39,8 +40,8 @@ public class CookieAnalyzer {
             report.addIssue(new SecurityIssue(
                     "HIGH",
                     String.format("Cookie de sessão '%s' está sem a flag 'HttpOnly'.", cookieName),
-                    "Permite roubo de sessão via XSS.",
-                    "Adicione o atributo 'HttpOnly'."
+                    "Permite roubo de sessão via ataques de Cross-Site Scripting (XSS).",
+                    "Adicione o atributo 'HttpOnly' na diretiva do cookie."
             ));
         }
 
@@ -48,27 +49,31 @@ public class CookieAnalyzer {
             report.addIssue(new SecurityIssue(
                     "HIGH",
                     String.format("Cookie de sessão '%s' está sem a flag 'Secure'.", cookieName),
-                    "Permite interceptação em redes HTTP.",
-                    "Adicione a flag 'Secure'."
+                    "Permite a interceptação do cookie em tráfego de redes HTTP não criptografadas.",
+                    "Adicione a flag 'Secure' para garantir que o cookie trafegue apenas via HTTPS."
             ));
         }
 
         String rawHeaderLowerCase = rawHeader.toLowerCase();
-        if (!rawHeaderLowerCase.contains("samesite=")) {
+        boolean hasSameSite = rawHeaderLowerCase.contains("samesite=");
+
+        if (!hasSameSite) {
             report.addIssue(new SecurityIssue(
                     "MEDIUM",
-                    String.format("Cookie de sessão '%s' não define 'SameSite'.", cookieName),
-                    "Facilita ataques CSRF.",
-                    "Configure 'SameSite=Lax' ou 'Strict'."
+                    String.format("Cookie de sessão '%s' não define o atributo 'SameSite'.", cookieName),
+                    "A ausência do SameSite deixa a aplicação mais vulnerável a ataques de Cross-Site Request Forgery (CSRF).",
+                    "Configure o atributo 'SameSite=Lax' ou 'SameSite=Strict' no cookie."
             ));
         }
     }
 
     private boolean isSensitiveCookie(String cookieName) {
         String nameLower = cookieName.toLowerCase();
+
         if (nameLower.startsWith("__secure-") || nameLower.startsWith("__host-")) {
             return true;
         }
+
         for (String sensitive : SENSITIVE_COOKIES) {
             if (nameLower.contains(sensitive)) {
                 return true;

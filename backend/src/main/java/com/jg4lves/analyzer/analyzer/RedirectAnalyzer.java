@@ -6,27 +6,23 @@ import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.net.http.HttpResponse;
+import java.util.Optional;
 
 @Component
 public class RedirectAnalyzer {
-
-    public void analyze(
-            HttpResponse<?> response,
-            SecurityReport report
-    ) {
+    public Optional<String> analyze(HttpResponse<?> response, SecurityReport report) {
 
         int status = response.statusCode();
 
-        if (status == 301 || status == 302 || status == 307 || status == 308) {
+        if (status == 301 || status == 302 || status == 303 || status == 307 || status == 308) {
 
-            String location = response.headers()
-                    .firstValue("Location")
-                    .orElse("");
+            Optional<String> locationOpt = response.headers().firstValue("Location");
 
-            if (location.isEmpty()) {
-                return;
+            if (locationOpt.isEmpty() || locationOpt.get().isBlank()) {
+                return Optional.empty();
             }
 
+            String location = locationOpt.get();
             boolean isHttp = location.startsWith("http://");
             boolean isLocalhost = location.contains("localhost") || location.contains("127.0.0.1");
 
@@ -59,9 +55,12 @@ public class RedirectAnalyzer {
                                 )
                         );
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException ignored) {
                 }
             }
+
+            return Optional.of(location);
         }
+        return Optional.empty();
     }
 }

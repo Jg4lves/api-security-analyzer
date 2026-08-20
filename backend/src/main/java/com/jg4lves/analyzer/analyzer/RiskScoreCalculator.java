@@ -13,24 +13,31 @@ public class RiskScoreCalculator {
     public int calculate(SecurityReport report) {
 
         int score = 100;
-        // Usa um Set para guardar as descrições e não punir o mesmo erro duas vezes
+
+        // Agora o Set guarda uma assinatura única baseada na Recomendação (que é estática)
         Set<String> punishedIssues = new HashSet<>();
 
         for (SecurityIssue issue : report.getIssues()) {
 
-            if (issue.getSeverity() == null || punishedIssues.contains(issue.getDescription())) {
+            if (issue.getSeverity() == null) {
+                continue;
+            }
+
+            String issueSignature = issue.getSeverity().toUpperCase() + "-" + issue.getRecommendation();
+
+            if (punishedIssues.contains(issueSignature)) {
                 continue;
             }
 
             switch (issue.getSeverity().toUpperCase()) {
-                case "LOW" -> score -= 2;
-                case "MEDIUM" -> score -= 5;
+                case "CRITICAL" -> score -= 25;
                 case "HIGH" -> score -= 10;
-                case "CRITICAL" -> score -= 20;
+                case "MEDIUM" -> score -= 3;
+                case "LOW" -> score -= 1;
                 default -> score -= 1;
             }
 
-            punishedIssues.add(issue.getDescription());
+            punishedIssues.add(issueSignature);
         }
 
         return Math.max(score, 0);
