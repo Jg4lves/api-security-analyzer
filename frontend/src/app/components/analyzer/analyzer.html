@@ -228,6 +228,10 @@
         </div>
       </div>
 
+      <div style="display: none">
+        <app-security-report *ngIf="report" [sourceData]="report"> </app-security-report>
+      </div>
+
       <div class="empty-state" *ngIf="!report && !isScanning">
         <div class="empty-grid">
           <div class="empty-item" *ngFor="let item of emptyPlaceholders">

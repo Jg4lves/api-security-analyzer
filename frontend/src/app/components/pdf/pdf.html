@@ -1,0 +1,69 @@
+<div class="report-page" *ngIf="report">
+  <header class="report-header">
+    <div>
+      <h1>Relatório de Análise de Segurança</h1>
+      <p class="subtitle">{{ report.target }}</p>
+    </div>
+
+    <div class="risk-box">
+      <span class="risk-label">Risk Score</span>
+      <span class="risk-score" [style.color]="colorFor(report.overallSeverity).bar">
+        {{ report.riskScore }}
+      </span>
+      <span
+        class="severity-pill"
+        [style.color]="colorFor(report.overallSeverity).text"
+        [style.background]="colorFor(report.overallSeverity).bg"
+      >
+        {{ labelFor(report.overallSeverity) }}
+      </span>
+    </div>
+  </header>
+
+  <section class="summary-grid">
+    <div class="summary-card" *ngFor="let sev of severities" [style.background]="colorFor(sev).bg">
+      <span class="summary-label" [style.color]="colorFor(sev).text">
+        {{ labelFor(sev) }}
+      </span>
+      <span class="summary-count" [style.color]="colorFor(sev).bar">
+        {{ countBy(sev) }}
+      </span>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button class="btn btn-primary" (click)="downloadPdf()">Baixar PDF</button>
+    <button class="btn btn-secondary" (click)="openPdfInNewTab()">Visualizar PDF</button>
+  </div>
+
+  <section class="findings">
+    <h2>Achados Detalhados</h2>
+
+    <article
+      class="finding-card"
+      *ngFor="let f of report.findings; let i = index"
+      [style.borderLeftColor]="colorFor(f.severity).bar"
+    >
+      <div class="finding-head">
+        <h3>{{ i + 1 }}. {{ f.description }}</h3>
+        <span
+          class="badge"
+          [style.color]="colorFor(f.severity).text"
+          [style.background]="colorFor(f.severity).bg"
+        >
+          {{ labelFor(f.severity) }}
+        </span>
+      </div>
+
+      <div class="finding-field">
+        <span class="field-label">Impacto</span>
+        <p>{{ f.impact }}</p>
+      </div>
+
+      <div class="finding-field">
+        <span class="field-label">Recomendação</span>
+        <p>{{ f.recommendation }}</p>
+      </div>
+    </article>
+  </section>
+</div>

@@ -1,12 +1,13 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SecurityReportComponent } from '../pdf/pdf';
 
 export interface SecurityCheck {
   name: string;
   status: 'pass' | 'fail' | 'warn';
-  severity: 'critical' | 'high' | 'medium' | 'low' | 'info';
+  severity: 'critical' | 'high' | 'medium' | 'low' ;
   description: string;
   value?: string;
 }
@@ -20,11 +21,12 @@ export interface SecurityReport {
 @Component({
   selector: 'app-security-analyzer',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SecurityReportComponent],
   templateUrl: './analyzer.html',
   styleUrls: ['./analyzer.scss'],
 })
 export class SecurityAnalyzerComponent implements OnDestroy {
+  @ViewChild(SecurityReportComponent) pdfGenerator!: SecurityReportComponent;
   private readonly API_BASE = 'http://localhost:8080/api/security';
 
   targetUrl = '';
@@ -55,7 +57,6 @@ export class SecurityAnalyzerComponent implements OnDestroy {
       this.urlError = 'Por favor, informe uma URL válida.';
       return false;
     }
-    // Basic domain validation
     const domainRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/;
     if (!domainRegex.test(this.targetUrl)) {
       this.urlError = 'Formato de URL inválido. Ex: exemplo.com.br';
@@ -77,56 +78,41 @@ export class SecurityAnalyzerComponent implements OnDestroy {
     this.progress = 0;
     this.simulateProgress();
 
-    this.http
-      .post<SecurityReport>(`${this.API_BASE}/scan`, { url: fullUrl })
-      .subscribe({
-        next: (data) => {
-          this.stopProgress();
-          this.progress = 100;
-          setTimeout(() => {
-            this.isScanning = false;
-            this.report = data;
-          }, 400);
-        },
-        error: (err) => {
-          this.stopProgress();
+    this.http.post<SecurityReport>(`${this.API_BASE}/scan`, { url: fullUrl }).subscribe({
+      next: (data) => {
+        this.stopProgress();
+        this.progress = 100;
+        setTimeout(() => {
           this.isScanning = false;
-          this.urlError =
-            err.status === 0
-              ? 'Não foi possível conectar ao servidor. Verifique se o backend está rodando.'
-              : `Erro ao analisar: ${err.error?.message || 'Tente novamente.'}`;
-        },
-      });
+          this.report = data;
+        }, 400);
+      },
+      error: (err) => {
+        this.stopProgress();
+        this.isScanning = false;
+        this.urlError =
+          err.status === 0
+            ? 'Não foi possível conectar ao servidor. Verifique se o backend está rodando.'
+            : `Erro ao analisar: ${err.error?.message || 'Tente novamente.'}`;
+      },
+    });
   }
 
   downloadReport(): void {
-    if (this.isDownloading) return;
-
-    const fullUrl = this.targetUrl.startsWith('http')
-      ? this.targetUrl
-      : `https://${this.targetUrl}`;
+    if (this.isDownloading || !this.report || !this.pdfGenerator) return;
 
     this.isDownloading = true;
 
-    this.http
-      .post(`${this.API_BASE}/report`, { url: fullUrl }, { responseType: 'blob' })
-      .subscribe({
-        next: (blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `security-report-${new Date().toISOString().slice(0, 10)}.pdf`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-          this.isDownloading = false;
-        },
-        error: () => {
-          this.isDownloading = false;
-          alert('Erro ao gerar o PDF. Tente novamente.');
-        },
-      });
+    setTimeout(() => {
+      try {
+        this.pdfGenerator.downloadPdf();
+      } catch (error) {
+        console.error('Erro ao gerar PDF', error);
+        alert('Erro ao gerar o PDF localmente.');
+      } finally {
+        this.isDownloading = false;
+      }
+    }, 150);
   }
 
   resetScan(): void {
