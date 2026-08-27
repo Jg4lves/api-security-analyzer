@@ -27,7 +27,7 @@ export interface SecurityReport {
 })
 export class SecurityAnalyzerComponent implements OnDestroy {
   @ViewChild(SecurityReportComponent) pdfGenerator!: SecurityReportComponent;
-  private readonly API_BASE = 'http://localhost:8080/api/security';
+  private readonly API_BASE = 'https://api-security-analyzer-do63.onrender.com/api/security';
 
   targetUrl = '';
   inputFocused = false;
