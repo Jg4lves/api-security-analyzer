@@ -169,7 +169,7 @@ export class SecurityReportComponent {
             width: 'auto',
             stack: [
               {
-                text: 'RISK SCORE',
+                text: 'Security SCORE',
                 style: 'riskLabel',
                 alignment: 'right',
               },
